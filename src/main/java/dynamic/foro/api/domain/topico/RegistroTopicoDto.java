@@ -1,4 +1,4 @@
-package dynamic.foro.api.topico;
+package dynamic.foro.api.domain.topico;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,4 +1,4 @@
-package dynamic.foro.api.curso;
+package dynamic.foro.api.domain.curso;
 
 public record CursoDto(
         String nombre,

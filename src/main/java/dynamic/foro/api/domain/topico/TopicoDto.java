@@ -1,9 +1,7 @@
-package dynamic.foro.api.topico;
+package dynamic.foro.api.domain.topico;
 
-import dynamic.foro.api.curso.Curso;
-import dynamic.foro.api.curso.CursoDto;
-import dynamic.foro.api.usuario.Usuario;
-import dynamic.foro.api.usuario.UsuarioDto;
+import dynamic.foro.api.domain.curso.CursoDto;
+import dynamic.foro.api.domain.usuario.UsuarioDto;
 
 public record TopicoDto(
         Long id,

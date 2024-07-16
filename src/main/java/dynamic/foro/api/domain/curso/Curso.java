@@ -1,8 +1,7 @@
-package dynamic.foro.api.curso;
+package dynamic.foro.api.domain.curso;
 
-import dynamic.foro.api.topico.Topico;
+import dynamic.foro.api.domain.topico.Topico;
 import jakarta.persistence.*;
-import jdk.dynalink.linker.LinkerServices;
 import lombok.*;
 
 import java.util.List;

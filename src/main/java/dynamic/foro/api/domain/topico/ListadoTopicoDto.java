@@ -1,8 +1,4 @@
-package dynamic.foro.api.topico;
-
-import dynamic.foro.api.curso.CursoDto;
-import dynamic.foro.api.usuario.UsuarioDto;
-import jakarta.validation.constraints.NotBlank;
+package dynamic.foro.api.domain.topico;
 
 public record ListadoTopicoDto(
         Long id,

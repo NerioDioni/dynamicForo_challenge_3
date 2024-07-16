@@ -1,10 +1,10 @@
 package dynamic.foro.api.controller;
 
-import dynamic.foro.api.curso.CursoDto;
-import dynamic.foro.api.curso.CursoRepository;
-import dynamic.foro.api.topico.*;
-import dynamic.foro.api.usuario.UsuarioDto;
-import dynamic.foro.api.usuario.UsuarioRepository;
+import dynamic.foro.api.domain.curso.CursoDto;
+import dynamic.foro.api.domain.curso.CursoRepository;
+import dynamic.foro.api.domain.topico.*;
+import dynamic.foro.api.domain.usuario.UsuarioDto;
+import dynamic.foro.api.domain.usuario.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/topicos")
@@ -26,12 +30,22 @@ public class TopicController {
 
 
     @PostMapping
-    public void registrarTopico(@RequestBody @Valid RegistroTopicoDto registro){
+    public ResponseEntity<TopicoDto>registrarTopico(@RequestBody @Valid RegistroTopicoDto registro, UriComponentsBuilder uriComponentsBuilder){
         var curso=cursoRepository.findByNombreContains(registro.nombreCurso());
         var usuario=usuarioRepository.getReferenceById(Long.parseLong(registro.idUsuario()));
         Topico topico=new Topico(registro,curso,usuario);
         topicoRepository.save(topico);
         System.out.println(topico);
+        var cursoDto=new CursoDto(topico.getCurso().getNombre(),
+                topico.getCurso().getCategoria());
+        var autorDto=new UsuarioDto(topico.getAutor().getId(),topico.getAutor().
+                getNombre(),topico.getAutor().getEmail());
+        var topicoDatos=new TopicoDto(topico.getId(),topico.getTitulo(),
+                topico.getMensaje(),topico.getEstado().toString(),
+                topico.getFechaCreacion().toString(),cursoDto,autorDto);
+        URI url = uriComponentsBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
+        return ResponseEntity.created(url).body(topicoDatos);
+
 
     }
     @GetMapping
@@ -42,18 +56,19 @@ public class TopicController {
                 .map(ListadoTopicoDto::new));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<TopicoDto> retornaDatosTopico(@PathVariable Long id) {
-        var topico = topicoRepository.getReferenceById(id);
+    public ResponseEntity<TopicoDto> retornaDatosTopico(@PathVariable Long id)throws RuntimeException {
 
-        var curso=new CursoDto(topico.getCurso().getNombre(),
-                topico.getCurso().getCategoria());
-        var autor=new UsuarioDto(topico.getAutor().getId(),topico.getAutor().
-                getNombre(),topico.getAutor().getEmail());
-        var topicoDatos=new TopicoDto(topico.getId(),topico.getTitulo(),
-                topico.getMensaje(),topico.getEstado().toString(),
-                topico.getFechaCreacion().toString(),curso,autor);
+            var topico=topicoRepository.getReferenceById(id);
+            var curso=new CursoDto(topico.getCurso().getNombre(),
+                    topico.getCurso().getCategoria());
+            var autor=new UsuarioDto(topico.getAutor().getId(),topico.getAutor().
+                    getNombre(),topico.getAutor().getEmail());
+            var topicoDatos=new TopicoDto(topico.getId(),topico.getTitulo(),
+                    topico.getMensaje(),topico.getEstado().toString(),
+                    topico.getFechaCreacion().toString(),curso,autor);
 
-        return ResponseEntity.ok(topicoDatos);
+            return ResponseEntity.ok(topicoDatos);
+
     }
     @DeleteMapping("/{id}")
     @Transactional
@@ -61,5 +76,21 @@ public class TopicController {
         var topico = topicoRepository.getReferenceById(id);
         topico.cerrarTopico();
         return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity actualizarMedico(@PathVariable Long id,
+                                           @RequestBody @Valid RegistroTopicoDto actualizarTopicoDto) {
+        var topico = topicoRepository.getReferenceById(id);
+        var curso=cursoRepository.findByNombreContains(actualizarTopicoDto.nombreCurso());
+        var autor=usuarioRepository.getReferenceById(Long.parseLong(actualizarTopicoDto.idUsuario()));
+        topico.actualizarTopico(actualizarTopicoDto,curso,autor);
+
+        var cursoDto=new CursoDto(curso.getNombre(), curso.getCategoria());
+        var autorDto=new UsuarioDto(autor.getId(),autor.getNombre(),autor.getEmail());
+        var topicoDatos=new TopicoDto(topico.getId(),topico.getTitulo(),
+                topico.getMensaje(),topico.getEstado().toString(),
+                topico.getFechaCreacion().toString(),cursoDto,autorDto);
+        return ResponseEntity.ok(topicoDatos);
     }
 }

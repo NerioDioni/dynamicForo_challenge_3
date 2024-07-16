@@ -1,18 +1,16 @@
-package dynamic.foro.api.topico;
+package dynamic.foro.api.domain.topico;
 
-import dynamic.foro.api.curso.Curso;
-import dynamic.foro.api.usuario.Usuario;
+import dynamic.foro.api.domain.curso.Curso;
+import dynamic.foro.api.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -38,6 +36,21 @@ public class Topico {
         this.autor=usuario;
         this.curso=curso;
 
+
+    }
+    public void actualizarTopico(RegistroTopicoDto registro,Curso curso,Usuario usuario){
+        if (registro.titulo() != null) {
+            this.titulo= registro.titulo();
+        }
+        if (registro.mensaje() != null) {
+            this.mensaje= registro.mensaje();
+        }
+        if (curso != null) {
+            this.curso= curso;
+        }
+        if (usuario!= null) {
+            this.autor= usuario;
+        }
 
     }
     @Override
