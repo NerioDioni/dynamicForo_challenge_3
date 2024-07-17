@@ -40,10 +40,7 @@ _Cabe destacar que se asume que para este punto la base de datos en las Tablas *
 
 _Se deben de enviar en formato json los datos necesarios para generar el token de autenticacion que nos servira para validar la ejecucion de las demas fucioncioes_
 
-```
 ![login](https://github.com/user-attachments/assets/619b6826-de78-4061-a45e-d3935ffb0104)
-
-```
 ### Ingreso de topicos
 _Se deben de enviar en formato json los datos necesarios para generar la insercion de dicho registro_
 
