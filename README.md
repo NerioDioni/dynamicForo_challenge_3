@@ -45,40 +45,30 @@ _Se deben de enviar en formato json los datos necesarios para generar el token d
 _Se deben de enviar en formato json los datos necesarios para generar la insercion de dicho registro_
 
 No olvidar ingresar el token typo Bearer_token generado cuando se logeo en apartado Auth de de insomnia _
-```
+
+
 ![put](https://github.com/user-attachments/assets/e3a6a272-3c8b-426f-88b4-e3469e7fb034)
 
-```
 ### Consulta de lista de topicos
 _enviar peticion get para obtener una lista de los topicos con su descripcion._
 
 _No olvidar ingresar el token typo Bearer_token generado cuando se logeo en apartado Auth de de insomnia _
-```
+
 ![getLista](https://github.com/user-attachments/assets/7d94aede-5d71-494c-8a7d-924ca78c8857)
 
-```
 ### Consulta de topico
 _enviar peticion get  y un id en la url para obtener un topico con su descripcion._
 
 _No olvidar ingresar el token typo Bearer_token generado cuando se logeo en apartado Auth de de insomnia _
-```
 ![update1](https://github.com/user-attachments/assets/6864d0e4-0de4-4b91-9528-e92f37d67e8b)
-
-```
-
 ### Actualizar un topico
 _enviar peticion junto con el id del topico a modificar , puede consultar la lista de topicos ingresados para saber el id del que desea modificar._
 
 _No olvidar ingresar el token typo Bearer_token generado cuando se logeo en apartado Auth de de insomnia _
-```
 ![update2](https://github.com/user-attachments/assets/1cf4df44-5000-445e-b23f-61d19f1fcb6f)
 
-```
 ### Desactivar/cerrar topico
 _enviar peticion junto con el id del topico a desactivar o cerrar, puede consultar la lista de topicos ingresados para saber el id del que desea modificar._
 
 _No olvidar ingresar el token typo Bearer_token generado cuando se logeo en apartado Auth de de insomnia _
-```
 ![delete2](https://github.com/user-attachments/assets/b84c5d28-322c-475e-99c2-3a0bc9de4d69)
-
-```
