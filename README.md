@@ -40,6 +40,7 @@ _Cabe destacar que se asume que para este punto la base de datos en las Tablas *
 _Se deben de enviar en formato json los datos necesarios para generar el token de autenticacion que nos servira para validar la ejecucion de las demas fucioncioes_
 
 ```
+https://raw.githubusercontent.com/NerioDioni/dynamicForo_challenge_3/main/login.png
 ![login](https://github.com/user-attachments/assets/910ea898-55cd-48d8-bcd1-25f30f5c9059)
 
 ```
